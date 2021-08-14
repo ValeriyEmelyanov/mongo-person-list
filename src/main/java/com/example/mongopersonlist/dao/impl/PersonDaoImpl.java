@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -50,6 +51,13 @@ public class PersonDaoImpl implements PersonDao {
     public List<Person> findByName(String name) {
         Query query = new Query();
         query.addCriteria(Criteria.where("name").is(name));
+        return mongoTemplate.find(query, Person.class);
+    }
+
+    @Override
+    public List<Person> findByBirthDateAfter(LocalDate date) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("birthDate").gt(date));
         return mongoTemplate.find(query, Person.class);
     }
 

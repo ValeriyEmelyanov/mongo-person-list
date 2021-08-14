@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,10 +18,12 @@ public class Person {
     @Id
     private String id;
     private String name;
+    private LocalDate birthDate;
     private List<String> favoriteBooks;
 
-    public Person(String name, List<String> favoriteBooks) {
+    public Person(String name, LocalDate birthDate, List<String> favoriteBooks) {
         this.name = name;
+        this.birthDate = birthDate;
         this.favoriteBooks = favoriteBooks;
     }
 
@@ -29,6 +32,7 @@ public class Person {
         return "Person{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
                 ", favoriteBooks=" + favoriteBooks +
                 '}';
     }

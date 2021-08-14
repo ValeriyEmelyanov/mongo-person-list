@@ -10,7 +10,8 @@ This is the training project. CRUD application with MongoDB.
 * Maven
 
 ### running the application
-
+First, you need to create a MongoDB database 
+and specify the database connection string in the `application.properties` file.
 ```
 mvn spring-boot:run
 ```
