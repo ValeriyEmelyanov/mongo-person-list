@@ -62,6 +62,13 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    public List<Person> findByFavoriteBook(String book) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("favoriteBooks").in(book));
+        return mongoTemplate.find(query, Person.class);
+    }
+
+    @Override
     public Person update(Person person) {
         mongoTemplate.save(person);
         return person;

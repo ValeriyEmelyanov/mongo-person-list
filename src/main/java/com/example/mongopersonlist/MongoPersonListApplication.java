@@ -62,6 +62,8 @@ public class MongoPersonListApplication implements CommandLineRunner {
                 personDao.findByName("Sergey"));
         System.out.printf("Getting all person with birth date after 2000-01-01: \n%s\n",
                 personDao.findByBirthDateAfter(LocalDate.of(2000, 1, 1)));
+        System.out.printf("Getting all person with the favirite book \"Harry potter\": \n%s\n",
+                personDao.findByFavoriteBook("Harry potter"));
 
         context.close();
     }

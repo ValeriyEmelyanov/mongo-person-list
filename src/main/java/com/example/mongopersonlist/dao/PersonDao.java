@@ -13,6 +13,7 @@ public interface PersonDao {
     Person findOneByName(String name);
     List<Person> findByName(String name);
     List<Person> findByBirthDateAfter(LocalDate date);
+    List<Person> findByFavoriteBook(String book);
     Person update(Person person);
     void delete(Person person);
     void deleteAll();
