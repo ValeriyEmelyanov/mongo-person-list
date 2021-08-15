@@ -38,18 +38,23 @@ public class MongoPersonListApplication implements CommandLineRunner {
 
         personDao.save(new Person("Shubham",
                 LocalDate.of(2004, 2, 21),
+                "shubham@gmail.com",
                 Arrays.asList("Harry potter", "Waking Up")));
         personDao.save(new Person("Sergey",
                 LocalDate.of(1978, 9, 1),
+                "sergey@gmail.com",
                 Arrays.asList("Startup Guides", "Java")));
         personDao.save(new Person("David",
                 LocalDate.of(1991, 5, 29),
+                "david@gmail.com",
                 Arrays.asList("Harry potter", "Success")));
         personDao.save(new Person("Ivan",
                 LocalDate.of(2001, 7, 12),
+                "ivan@mail.com",
                 Arrays.asList("Secrets of Butene", "Meeting Success")));
         personDao.save(new Person("Sergey",
                 LocalDate.of(1998, 3, 28),
+                "serg@gmail.com",
                 Arrays.asList("Harry potter", "Startup Guides")));
 
         System.out.printf("Getting all data from MongoDB: \n%s\n",

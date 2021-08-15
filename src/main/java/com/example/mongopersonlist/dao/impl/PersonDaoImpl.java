@@ -2,6 +2,7 @@ package com.example.mongopersonlist.dao.impl;
 
 import com.example.mongopersonlist.dao.PersonDao;
 import com.example.mongopersonlist.model.Person;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -82,7 +83,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public void deleteAll() {
         if (mongoTemplate.collectionExists(Person.class)) {
-            mongoTemplate.dropCollection(Person.class);
+            mongoTemplate.getCollection("person").deleteMany(new Document());
         }
     }
 }
