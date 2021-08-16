@@ -28,7 +28,7 @@ public interface PersonDao {
      * Method for getting a page list of persons.
      * @param pageNumber number of a page
      * @param pageSize size of a page
-     * @return a page list of persons
+     * @return a list of persons for one page
      */
     List<Person> getAllPaginated(int pageNumber, int pageSize);
 
@@ -38,6 +38,12 @@ public interface PersonDao {
      * @return person with name like in the argument
      */
     Person findOneByName(String name);
+
+    /**
+     * Method for getting size of the Person collection.
+     * @return size of the Person collection
+     */
+    long size();
 
     /**
      * Method for getting a list of persons with name like in the argument.

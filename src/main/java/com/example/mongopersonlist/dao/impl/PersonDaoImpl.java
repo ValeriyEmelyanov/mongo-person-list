@@ -36,7 +36,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public List<Person> getAllPaginated(int pageNumber, int pageSize) {
         Query query = new Query();
-        query.skip((long) pageNumber * pageSize);
+        query.skip((long) (pageNumber - 1) * pageSize);
         query.limit(pageSize);
         return mongoTemplate.find(query, Person.class);
     }
@@ -46,6 +46,11 @@ public class PersonDaoImpl implements PersonDao {
         Query query = new Query();
         query.addCriteria(Criteria.where("name").is(name));
         return mongoTemplate.findOne(query, Person.class);
+    }
+
+    @Override
+    public long size() {
+        return mongoTemplate.getCollection("person").countDocuments();
     }
 
     @Override
