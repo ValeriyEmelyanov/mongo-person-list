@@ -1,5 +1,6 @@
 package com.example.mongopersonlist.dto.response;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
  * about a person.
  */
 @Data
+@Builder
 public class PersonResponse {
     private String id;
     private String name;

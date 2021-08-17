@@ -1,5 +1,6 @@
 package com.example.mongopersonlist.dto.response;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * about a page of persons.
  */
 @Data
+@Builder
 public class PersonPageResponse {
 
     /**
