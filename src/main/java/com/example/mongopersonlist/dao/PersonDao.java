@@ -32,6 +32,8 @@ public interface PersonDao {
      */
     List<Person> getAllPaginated(int pageNumber, int pageSize);
 
+    Person getById(String id);
+
     /**
      * Method for getting some person by a name.
      * @param name name of person which is finding
