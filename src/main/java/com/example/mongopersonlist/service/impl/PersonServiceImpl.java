@@ -1,6 +1,7 @@
 package com.example.mongopersonlist.service.impl;
 
 import com.example.mongopersonlist.dao.PersonDao;
+import com.example.mongopersonlist.dto.request.PersonRequest;
 import com.example.mongopersonlist.dto.response.PersonPageResponse;
 import com.example.mongopersonlist.dto.response.PersonResponse;
 import com.example.mongopersonlist.exception.PersonNotFoundException;
@@ -57,12 +58,61 @@ public class PersonServiceImpl implements PersonService {
     @NonNull
     public PersonResponse getById(@NonNull String id) {
         Assert.notNull(id, ErrorMessages.PERSON_ID_NOT_NULL);
-        log.info("Requested The Person with id: {}", id);
+        log.info("Requested the Person with id: {}", id);
 
+        Person person = getPersonById(id);
+
+        return Objects.requireNonNull(conversionService.convert(person, PersonResponse.class));
+    }
+
+    private Person getPersonById(String id) {
         Person person = personDao.getById(id);
         if (person == null) {
             throw new PersonNotFoundException(String.format("Person with id: %s is not found", id));
         }
+        return person;
+    }
+
+    @Override
+    @Transactional
+    @NonNull
+    public PersonResponse save(@NonNull PersonRequest personRequest) {
+        Assert.notNull(personRequest, ErrorMessages.PERSON_REQUEST_OBJECT_NOT_NULL);
+        log.info("Requested for saving a new person: {}", personRequest);
+
+        Person person = conversionService.convert(personRequest, Person.class);
+        personDao.save(person);
+        log.info("Saved a new person with id: {}", Objects.requireNonNull(person).getId());
+
         return Objects.requireNonNull(conversionService.convert(person, PersonResponse.class));
+    }
+
+    @Override
+    @Transactional
+    @NonNull
+    public PersonResponse update(String id, PersonRequest personRequest) {
+        Assert.notNull(id, ErrorMessages.PERSON_ID_NOT_NULL);
+        Assert.notNull(personRequest, ErrorMessages.PERSON_REQUEST_OBJECT_NOT_NULL);
+        log.info("Requested for updating the person with id: {}", id);
+
+        Person fetched = getPersonById(id);
+
+        Person person = conversionService.convert(personRequest, Person.class);
+        Objects.requireNonNull(person).setId(fetched.getId());
+        personDao.save(person);
+
+        return Objects.requireNonNull(conversionService.convert(person, PersonResponse.class));
+    }
+
+    @Override
+    @Transactional
+    @NonNull
+    public void delete(String id) {
+        Assert.notNull(id, ErrorMessages.PERSON_ID_NOT_NULL);
+        log.info("Requested for deleting the person with id: {}", id);
+
+        Person fetched = getPersonById(id);
+
+        personDao.delete(fetched);
     }
 }
