@@ -1,6 +1,6 @@
 package com.example.mongopersonlist.converter.todto;
 
-import com.example.mongopersonlist.dto.response.PersonResponse;
+import com.example.mongopersonlist.service.response.PersonResponse;
 import com.example.mongopersonlist.model.Person;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

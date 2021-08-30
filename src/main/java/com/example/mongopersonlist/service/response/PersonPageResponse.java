@@ -1,8 +1,7 @@
-package com.example.mongopersonlist.dto.response;
+package com.example.mongopersonlist.service.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

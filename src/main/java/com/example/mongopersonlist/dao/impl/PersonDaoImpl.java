@@ -22,8 +22,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     @NonNull
     public Person save(@NonNull Person person) {
-        mongoTemplate.save(person);
-        return person;
+        return mongoTemplate.save(person);
     }
 
     @Override

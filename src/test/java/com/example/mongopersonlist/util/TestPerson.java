@@ -1,6 +1,7 @@
 package com.example.mongopersonlist.util;
 
 import com.example.mongopersonlist.model.Person;
+import com.example.mongopersonlist.service.request.PersonRequest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,5 +29,21 @@ public class TestPerson {
         person.setFavoriteBooks(List.of("Secrets of Butene", "Meeting Success"));
 
         return person;
+    }
+
+    public static Person fromRequest(PersonRequest request) {
+        Person person = new Person();
+        person.setName(request.getName());
+        person.setBirthDate(request.getBirthDate());
+        person.setEmail(request.getEmail());
+        person.setFavoriteBooks(request.getFavoriteBooks());
+
+        return person;
+    }
+
+    public static List<Person> persons() {
+        return List.of(
+                personOne(),
+                personTwo());
     }
 }

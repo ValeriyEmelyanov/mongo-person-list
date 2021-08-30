@@ -1,6 +1,6 @@
 package com.example.mongopersonlist.converter.toModel;
 
-import com.example.mongopersonlist.dto.request.PersonRequest;
+import com.example.mongopersonlist.service.request.PersonRequest;
 import com.example.mongopersonlist.model.Person;
 import org.springframework.core.convert.converter.Converter;
 

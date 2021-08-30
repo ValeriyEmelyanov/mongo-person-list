@@ -1,7 +1,7 @@
 package com.example.mongopersonlist.controller;
 
-import com.example.mongopersonlist.dto.response.PersonPageResponse;
-import com.example.mongopersonlist.dto.response.PersonResponse;
+import com.example.mongopersonlist.service.response.PersonPageResponse;
+import com.example.mongopersonlist.service.response.PersonResponse;
 import com.example.mongopersonlist.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

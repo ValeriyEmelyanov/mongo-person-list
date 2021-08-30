@@ -1,12 +1,12 @@
 package com.example.mongopersonlist.service.impl;
 
 import com.example.mongopersonlist.dao.PersonDao;
-import com.example.mongopersonlist.dto.request.PersonRequest;
-import com.example.mongopersonlist.dto.response.PersonPageResponse;
-import com.example.mongopersonlist.dto.response.PersonResponse;
 import com.example.mongopersonlist.exception.PersonNotFoundException;
 import com.example.mongopersonlist.model.Person;
 import com.example.mongopersonlist.service.PersonService;
+import com.example.mongopersonlist.service.request.PersonRequest;
+import com.example.mongopersonlist.service.response.PersonPageResponse;
+import com.example.mongopersonlist.service.response.PersonResponse;
 import com.example.mongopersonlist.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -81,10 +81,10 @@ public class PersonServiceImpl implements PersonService {
         log.info("Requested for saving a new person: {}", personRequest);
 
         Person person = conversionService.convert(personRequest, Person.class);
-        personDao.save(person);
-        log.info("Saved a new person with id: {}", Objects.requireNonNull(person).getId());
+        Person returnValue = personDao.save(person);
+        log.info("Saved a new person with id: {}", Objects.requireNonNull(returnValue).getId());
 
-        return Objects.requireNonNull(conversionService.convert(person, PersonResponse.class));
+        return Objects.requireNonNull(conversionService.convert(returnValue, PersonResponse.class));
     }
 
     @Override

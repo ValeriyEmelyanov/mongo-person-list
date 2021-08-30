@@ -1,8 +1,7 @@
-package com.example.mongopersonlist.dto.response;
+package com.example.mongopersonlist.service.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,17 +9,12 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * An object for trancferring data from a controller to a response
- * about a person.
- */
 @AllArgsConstructor
 @Getter
-@EqualsAndHashCode(of = {"id"}, doNotUseGetters = true)
+@EqualsAndHashCode(doNotUseGetters = true)
 @ToString
 @Builder
-public class PersonResponse {
-    private final String id;
+public class PersonRequest {
     private final String name;
     private final LocalDate birthDate;
     private final String email;

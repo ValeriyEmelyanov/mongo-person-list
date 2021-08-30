@@ -1,8 +1,8 @@
 package com.example.mongopersonlist.service;
 
-import com.example.mongopersonlist.dto.request.PersonRequest;
-import com.example.mongopersonlist.dto.response.PersonPageResponse;
-import com.example.mongopersonlist.dto.response.PersonResponse;
+import com.example.mongopersonlist.service.request.PersonRequest;
+import com.example.mongopersonlist.service.response.PersonPageResponse;
+import com.example.mongopersonlist.service.response.PersonResponse;
 import com.example.mongopersonlist.exception.PersonNotFoundException;
 import com.example.mongopersonlist.model.Person;
 
