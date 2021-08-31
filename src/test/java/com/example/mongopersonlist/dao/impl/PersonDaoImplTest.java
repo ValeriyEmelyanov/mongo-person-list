@@ -32,7 +32,7 @@ class PersonDaoImplTest {
     }
 
     @Test
-    void save() {
+    void save_person_savedAndPersonReturned() {
         Person person = TestPerson.personOne();
 
         Person saved = personDao.save(person);
@@ -42,7 +42,7 @@ class PersonDaoImplTest {
     }
 
     @Test
-    void getAllPaginated() {
+    void getAllPaginated_pageNumberAndSize_listReturned() {
         Person person = TestPerson.personOne();
         mongoTemplate.save(person);
         Person person2 = TestPerson.personTwo();
@@ -55,7 +55,7 @@ class PersonDaoImplTest {
     }
 
     @Test
-    void getById() {
+    void getById_id_personReturned() {
         Person person = TestPerson.personOne();
         mongoTemplate.save(person);
         Person person2 = TestPerson.personTwo();
@@ -68,7 +68,7 @@ class PersonDaoImplTest {
     }
 
     @Test
-    void size() {
+    void size_personCollectonSizeReturned() {
         Person person = TestPerson.personOne();
         mongoTemplate.save(person);
         Person person2 = TestPerson.personTwo();
@@ -80,7 +80,7 @@ class PersonDaoImplTest {
     }
 
     @Test
-    void delete() {
+    void delete_person_personDeleted() {
         Person person = TestPerson.personOne();
         mongoTemplate.save(person);
         Person person2 = TestPerson.personTwo();

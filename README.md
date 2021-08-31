@@ -32,3 +32,11 @@ mvn spring-boot:run
 * [Spring Boot With MongoDB](https://www.javadevjournal.com/spring-boot/spring-boot-with-mongodb/)
 * [Spring Boot REST API Using Spring Data MongoDB Tutorial](https://javatodev.com/spring-boot-mongodb-crud-api/)
 * [MongoDB от входа до отказа!](https://russianblogs.com/article/1813223555/) 
+
+
+* [Class MockitoAnnotations](https://www.javadoc.io/doc/org.mockito/mockito-core/3.6.0/org/mockito/MockitoAnnotations.html)
+* [Interface MockitoSession](https://www.javadoc.io/static/org.mockito/mockito-core/3.6.0/org/mockito/MockitoSession.html)
+* [Как правильно выбрать название для юнит-теста?](https://ru.stackoverflow.com/questions/471343/%D0%9A%D0%B0%D0%BA-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D1%8C%D0%BD%D0%BE-%D0%B2%D1%8B%D0%B1%D1%80%D0%B0%D1%82%D1%8C-%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BB%D1%8F-%D1%8E%D0%BD%D0%B8%D1%82-%D1%82%D0%B5%D1%81%D1%82%D0%B0)
+* [Юнит-тестирование для чайников](https://habr.com/ru/post/169381/)
+* [Как правильно выбрать название для Unit тестов](https://bool.dev/blog/detail/kak-pravilno-imenovat-unit-testu)
+* [Передовой опыт тестирования в Java](https://habr.com/ru/company/funcorp/blog/517724/)

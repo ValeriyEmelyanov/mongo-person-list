@@ -45,16 +45,8 @@ class PersonServiceImplTest extends BaseTest {
     private final PersonRequestToPersonConverter toPersonConverter =
             new PersonRequestToPersonConverter();
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
-    void getAllPaginated() {
+    void getAllPaginated_pageNumberAndSize_listReturned() {
         int pageNumber = 1;
         int pageSize = 5;
         List<Person> persons = TestPerson.persons();
@@ -81,7 +73,7 @@ class PersonServiceImplTest extends BaseTest {
     }
 
     @Test
-    void getById() {
+    void getById_id_personResponseReturned() {
         String id = UUID.randomUUID().toString();
         Person person = TestPerson.personOne();
         person.setId(id);
@@ -104,7 +96,7 @@ class PersonServiceImplTest extends BaseTest {
     }
 
     @Test
-    void save() {
+    void save_personRequest_savedAndPersonResponseReturned() {
         PersonRequest personRequest = TestPersonRequest.requestOne();
         Person person = TestPerson.fromRequest(personRequest);
         Person personWithId = TestPerson.fromRequest(personRequest);
@@ -131,7 +123,7 @@ class PersonServiceImplTest extends BaseTest {
     }
 
     @Test
-    void update() {
+    void update_idAndPersonRequest_updatedAndPersonResponseReturned() {
         PersonRequest personRequest = TestPersonRequest.requestOne();
         String id = UUID.randomUUID().toString();
         Person somePerson = TestPerson.personOne();
@@ -161,7 +153,7 @@ class PersonServiceImplTest extends BaseTest {
     }
 
     @Test
-    void delete() {
+    void delete_id_personWithIdDeleted() {
         String id = UUID.randomUUID().toString();
         Person person = TestPerson.personOne();
         person.setId(id);
