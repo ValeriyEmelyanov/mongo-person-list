@@ -3,14 +3,14 @@ package com.example.mongopersonlist.service.impl;
 import com.example.mongopersonlist.converter.toModel.PersonRequestToPersonConverter;
 import com.example.mongopersonlist.converter.todto.PersoneToPersoneResponseConverter;
 import com.example.mongopersonlist.dao.PersonDao;
+import com.example.mongopersonlist.exception.EmailAlreadyTakenException;
+import com.example.mongopersonlist.exception.PersonNotFoundException;
 import com.example.mongopersonlist.model.Person;
 import com.example.mongopersonlist.service.request.PersonRequest;
 import com.example.mongopersonlist.service.response.PersonPageResponse;
 import com.example.mongopersonlist.service.response.PersonResponse;
 import com.example.mongopersonlist.util.TestPerson;
 import com.example.mongopersonlist.util.TestPersonRequest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
@@ -96,6 +97,17 @@ class PersonServiceImplTest extends BaseTest {
     }
 
     @Test
+    void getById_notExistingId_PersonNotFoundExceptionThrown() {
+        String id = UUID.randomUUID().toString();
+
+        when(personDao.getById(id))
+                .thenReturn(null);
+
+        assertThrows(PersonNotFoundException.class,
+                () -> personService.getById(id));
+    }
+
+    @Test
     void save_personRequest_savedAndPersonResponseReturned() {
         PersonRequest personRequest = TestPersonRequest.requestOne();
         Person person = TestPerson.fromRequest(personRequest);
@@ -103,6 +115,8 @@ class PersonServiceImplTest extends BaseTest {
         String id = UUID.randomUUID().toString();
         personWithId.setId(id);
 
+        when(personDao.getByEmail(person.getEmail()))
+                .thenReturn(null);
         when(personDao.save(person))
                 .thenReturn(personWithId);
         when(conversionService.convert(personRequest, Person.class))
@@ -120,6 +134,21 @@ class PersonServiceImplTest extends BaseTest {
                 () -> assertEquals(personWithId.getEmail(), personResponse.getEmail()),
                 () -> assertIterableEquals(personWithId.getFavoriteBooks(), personResponse.getFavoriteBooks())
         );
+    }
+
+    @Test
+    void save_personRequestWithAlreadyTakenEmail_EmailAlreadyTakenExceptionThrown() {
+        PersonRequest personRequest = TestPersonRequest.requestOne();
+        Person person = TestPerson.fromRequest(personRequest);
+        Person personWithId = TestPerson.fromRequest(personRequest);
+        String id = UUID.randomUUID().toString();
+        personWithId.setId(id);
+
+        when(personDao.getByEmail(person.getEmail()))
+                .thenReturn(personWithId);
+
+        assertThrows(EmailAlreadyTakenException.class,
+                () -> personService.save(personRequest));
     }
 
     @Test
@@ -164,5 +193,16 @@ class PersonServiceImplTest extends BaseTest {
                 .when(personDao).delete(person);
 
         personService.delete(id);
+    }
+
+    @Test
+    void delete_notExistingId_PersonNotFoundExceptionThrown() {
+        String id = UUID.randomUUID().toString();
+
+        when(personDao.getById(id))
+                .thenReturn(null);
+
+        assertThrows(PersonNotFoundException.class,
+                () -> personService.delete(id));
     }
 }

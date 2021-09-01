@@ -48,6 +48,13 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    public Person getByEmail(String email) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+        return mongoTemplate.findOne(query, Person.class);
+    }
+
+    @Override
     public Person findOneByName(String name) {
         Query query = new Query();
         query.addCriteria(Criteria.where("name").is(name));

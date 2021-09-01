@@ -64,10 +64,15 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(body);
     }
 
+    @ExceptionHandler(value = EmailAlreadyTakenException.class)
+    public ResponseEntity<Object> handleEmailAlreadyTakenException(EmailAlreadyTakenException ex,
+                                                                WebRequest request) {
+        return getExceptionResponseEntity(ex, HttpStatus.BAD_REQUEST, request, List.of());
+    }
+
     @ExceptionHandler(value = PersonNotFoundException.class)
     public ResponseEntity<Object> handlePersonNotFoundException(PersonNotFoundException ex,
                                                                 WebRequest request) {
         return getExceptionResponseEntity(ex, HttpStatus.NOT_FOUND, request, List.of());
     }
-
 }

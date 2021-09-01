@@ -1,6 +1,7 @@
 package com.example.mongopersonlist.service.impl;
 
 import com.example.mongopersonlist.dao.PersonDao;
+import com.example.mongopersonlist.exception.EmailAlreadyTakenException;
 import com.example.mongopersonlist.exception.PersonNotFoundException;
 import com.example.mongopersonlist.model.Person;
 import com.example.mongopersonlist.service.PersonService;
@@ -79,6 +80,11 @@ public class PersonServiceImpl implements PersonService {
     public PersonResponse save(@NonNull PersonRequest personRequest) {
         Assert.notNull(personRequest, ErrorMessages.PERSON_REQUEST_OBJECT_NOT_NULL);
         log.info("Requested for saving a new person: {}", personRequest);
+
+        if (personDao.getByEmail(personRequest.getEmail()) != null) {
+            throw new EmailAlreadyTakenException(
+                    String.format("Person with email: %s alreadu exists!", personRequest.getEmail()));
+        }
 
         Person person = conversionService.convert(personRequest, Person.class);
         Person returnValue = personDao.save(person);

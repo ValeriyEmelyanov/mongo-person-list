@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
+import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -55,6 +57,19 @@ class PersonDaoImplTest {
     }
 
     @Test
+    void getAllPaginated_notExistingPageNumberAndSize_emptyListReturned() {
+        Person person = TestPerson.personOne();
+        mongoTemplate.save(person);
+        Person person2 = TestPerson.personTwo();
+        mongoTemplate.save(person2);
+
+        List<Person> persons = personDao.getAllPaginated(2, 2);
+
+        assertNotNull(persons);
+        assertEquals(0, persons.size());
+    }
+
+    @Test
     void getById_id_personReturned() {
         Person person = TestPerson.personOne();
         mongoTemplate.save(person);
@@ -65,6 +80,55 @@ class PersonDaoImplTest {
 
         assertNotNull(fetched);
         assertEquals(person.getId(), fetched.getId());
+    }
+
+    @Test
+    void getById_notExistingId_nullReturned() {
+        Person person = TestPerson.personOne();
+        mongoTemplate.save(person);
+        Person person2 = TestPerson.personTwo();
+        mongoTemplate.save(person2);
+        String id = getNotExistingId(person, person2);
+
+        Person fetched = personDao.getById(id);
+
+        assertNull(fetched);
+    }
+
+    private String getNotExistingId(Person person, Person person2) {
+        String id = UUID.randomUUID().toString();
+        while (id.equals(person.getId()) || id.equals(person2.getId())) {
+            id = UUID.randomUUID().toString();
+        }
+        return id;
+    }
+
+    @Test
+    void getByEmail_email_personReturned() {
+        Person person = TestPerson.personOne();
+        mongoTemplate.save(person);
+        Person person2 = TestPerson.personTwo();
+        mongoTemplate.save(person2);
+
+        Person fetched = personDao.getByEmail(person.getEmail());
+
+        assertNotNull(fetched);
+        assertAll("Non-equivalent person data",
+                () -> assertEquals(person.getId(), fetched.getId()),
+                () -> assertEquals(person.getEmail(), fetched.getEmail())
+        );
+    }
+
+    @Test
+    void getByEmail_notExistinEmail_nullReturned() {
+        Person person = TestPerson.personOne();
+        mongoTemplate.save(person);
+        Person person2 = TestPerson.personTwo();
+        mongoTemplate.save(person2);
+
+        Person fetched = personDao.getByEmail("not-exist@not-exist.no");
+
+        assertNull(fetched);
     }
 
     @Test
